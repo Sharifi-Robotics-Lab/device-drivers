@@ -18,7 +18,7 @@ class AK_Motor
                  int proportional,
                  int derivative,
                  float theta_scaling);
-                 
+
         void init();
 
         void set_theta(float theta);
@@ -95,6 +95,22 @@ class AK70_10 : public AK_Motor
                 int derivative,
                 float theta_scaling);
     private:
+        const float const_V_MIN = -50;
+        const float const_V_MAX = 50;
+        const float const_T_MIN = -25;
+        const float const_T_MAX = 25;
+};
+
+class AK10_9 : public AK_Motor
+{
+    public:
+        AK10_9(int motorid,
+               int proportional,
+               int derivative,
+               float theta_scaling);
+    private:
+
+        /// @todo: Need to update these numbers:
         const float const_V_MIN = -50;
         const float const_V_MAX = 50;
         const float const_T_MIN = -25;
