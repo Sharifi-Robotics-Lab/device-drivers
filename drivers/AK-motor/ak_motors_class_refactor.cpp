@@ -57,6 +57,7 @@ void AK_Motor::set_theta(int theta){
                             too to reflect the correct rounding config
 }
 
+
 /*! ****************************************************************************
 * @brief Get the most recent theta feedback from the motor without CAN message
 * @return The currently stored floating point theta feedback value
@@ -64,6 +65,29 @@ void AK_Motor::set_theta(int theta){
 float AK_Motor::get_theta(){
   return feedback_theta;
 }
+
+
+/*! ****************************************************************************
+* @brief Overloaded function to set the motor velocity
+* @param velocity The floating point velocity to set the motor to
+*******************************************************************************/
+void AK_Motor::set_velocity(float velocity)
+{
+  to_motor(id, 0, velocity, kp, kd, 0, &tx_frame);  //theta_d is in radians
+
+  if(xQueueReceive(CAN_cfg.rx_queue, &motor_returnMsg, 1*portTICK_PERIOD_MS)==pdTRUE){
+    unpack_reply(motor_returnMsg);
+  }
+}
+
+/*! ****************************************************************************
+* @brief Get the most recent velocity feedback from the motor without CAN message
+* @return The currently stored floating point velocity feedback value
+*******************************************************************************/
+float AK_Motor::get_velocity(){
+  return feedback_vel;
+}
+
 
 /*! ****************************************************************************
 * @brief Set the integer conversion constants unique to each motor model

@@ -18,10 +18,18 @@ class AK_Motor
                  int proportional,
                  int derivative,
                  float theta_scaling);
+                 
         void init();
+
         void set_theta(float theta);
+
         void set_theta(int theta);
+
         float get_theta();
+
+        void set_velocity(float velocity);
+        
+        float get_velocity();
 
     protected:
         void set_motor_consts(float v_min, float v_max, float t_min, float t_max);
